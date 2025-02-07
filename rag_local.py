@@ -1,6 +1,6 @@
 import streamlit as st
-from langchain_community.document_loaders import PDFPlumberLoader, UnstructuredMarkdownLoader  # Updated for Markdown files
-from langchain_community.text_splitter import SemanticChunker  # Updated import path
+from langchain_community.document_loaders import PDFPlumberLoader, UnstructuredMarkdownLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter  # Using a stable alternative text splitter
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_community.llms import Ollama
@@ -43,8 +43,8 @@ if uploaded_files:
         docs = loader.load()
         all_docs.extend(docs)
 
-    # Process the loaded documents
-    text_splitter = SemanticChunker(HuggingFaceEmbeddings())
+    # Process the loaded documents using RecursiveCharacterTextSplitter instead of SemanticChunker
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
     documents = text_splitter.split_documents(all_docs)
 
     embedder = HuggingFaceEmbeddings()
@@ -71,4 +71,3 @@ if uploaded_files:
         response = qa(user_input)["result"]
         st.write("**Response:**")
         st.write(response)
-
