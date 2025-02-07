@@ -1,7 +1,6 @@
 import streamlit as st
-from langchain_community.document_loaders import PDFPlumberLoader
-from langchain.document_loaders import UnstructuredMarkdownLoader  # For Markdown files
-from langchain_experimental.text_splitter import SemanticChunker
+from langchain_community.document_loaders import PDFPlumberLoader, UnstructuredMarkdownLoader  # Updated for Markdown files
+from langchain_community.text_splitter import SemanticChunker  # Updated import path
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_community.llms import Ollama
@@ -44,6 +43,7 @@ if uploaded_files:
         docs = loader.load()
         all_docs.extend(docs)
 
+    # Process the loaded documents
     text_splitter = SemanticChunker(HuggingFaceEmbeddings())
     documents = text_splitter.split_documents(all_docs)
 
@@ -71,3 +71,4 @@ if uploaded_files:
         response = qa(user_input)["result"]
         st.write("**Response:**")
         st.write(response)
+
