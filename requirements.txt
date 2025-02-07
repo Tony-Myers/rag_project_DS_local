@@ -4,3 +4,4 @@ langchain_community
 pdfplumber
 unstructured
 Markdown
+sentence-transformers
