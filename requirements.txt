@@ -5,3 +5,4 @@ pdfplumber
 unstructured
 Markdown
 sentence-transformers
+faiss-cpu
