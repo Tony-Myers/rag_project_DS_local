@@ -6,4 +6,4 @@ unstructured
 Markdown
 sentence-transformers
 faiss-cpu
-faiss-gpu
+
